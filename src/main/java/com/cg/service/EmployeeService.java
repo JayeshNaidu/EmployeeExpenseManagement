@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cg.entity.Employee;
-import com.cg.entity.LoginDetails;
 import com.cg.exception.EmployeeException;
 import com.cg.exception.LoginDetailsException;
 import com.cg.repository.EmployeeRepository;
@@ -19,24 +18,21 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository eRepo;
 
-	@Autowired 
+	@Autowired
 	private LoginDetailsRepository ldRepo;
-	
+
 	public String addEmployee(Employee employee) {
-		String email=employee.getEmpEmailId();
-		int checkLoginDetailsId=employee.getLogindetails().getId();
+		String email = employee.getEmpEmailId();
+		int checkLoginDetailsId = employee.getLogindetails().getId();
 		try {
 			if (eRepo.existsByEmpEmailId(email)) {
 				throw new EmployeeException("Employee with this email already exists");
-			}
-			else if (!ldRepo.existsById(checkLoginDetailsId)) {
+			} else if (!ldRepo.existsById(checkLoginDetailsId)) {
 				throw new LoginDetailsException("Login Detail does not exist");
-			}
-			else {
+			} else {
 				eRepo.save(employee);
 			}
-		}
-		catch(EmployeeException ex) {
+		} catch (EmployeeException ex) {
 			throw ex;
 		}
 		return "Employee Added";
@@ -44,11 +40,10 @@ public class EmployeeService {
 
 	public List<Employee> getEmployees() {
 		try {
-			if (eRepo.count()==0) {
+			if (eRepo.count() == 0) {
 				throw new EmployeeException("Employee Table is empty");
 			}
-		}
-		catch(EmployeeException ex) {
+		} catch (EmployeeException ex) {
 			throw ex;
 		}
 		return eRepo.findAll();
@@ -59,21 +54,19 @@ public class EmployeeService {
 			if (!eRepo.existsById(id)) {
 				throw new EmployeeException("Employee Not Found");
 			}
-		}
-		catch(EmployeeException ex){
+		} catch (EmployeeException ex) {
 			throw ex;
 		}
-		return new ResponseEntity(eRepo.findById(id).get(),HttpStatus.OK);
+		return new ResponseEntity<Object>(eRepo.findById(id).get(), HttpStatus.OK);
 	}
 
 	public String deleteEmployee(int id) {
-		
+
 		try {
 			if (!eRepo.existsById(id)) {
 				throw new EmployeeException("No such employee exists");
 			}
-		}
-		catch(EmployeeException ex){
+		} catch (EmployeeException ex) {
 			throw ex;
 		}
 		eRepo.deleteById(id);
@@ -86,6 +79,7 @@ public class EmployeeService {
 
 	// EmployyeNotFoundException to be added
 	public Employee getEmployeeByAll(String userName, String password, String role) {
+		@SuppressWarnings("unused")
 		Boolean b = false;
 		List<Employee> el = eRepo.findAll();
 		for (Employee e : el) {
@@ -96,6 +90,18 @@ public class EmployeeService {
 			}
 		}
 		return null;
+	}
+
+	public Employee addEmployeefortest(Employee employee) {
+		return eRepo.save(employee);
+	}
+
+	public Employee GetEmployeeByEmpname(Employee employee) {
+		return eRepo.findByEmpName(employee.getEmpName());
+	}
+
+	public void deleteEmployee(Employee employee) {
+		eRepo.delete(employee);
 	}
 
 }

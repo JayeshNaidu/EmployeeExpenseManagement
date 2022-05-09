@@ -1,28 +1,23 @@
 package com.cg.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="LoginDetails")
+@Table(name = "LoginDetails")
 public class LoginDetails {
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	@Column(name="lUserName")
+	@Column(name = "lUserName")
 	private String lUserName;
-	@Column(name="lPassword")
+	@Column(name = "lPassword")
 	private String lPassword;
-	@Column(name="lRole")
+	@Column(name = "lRole")
 	private String lRole;
-	
+
 	public LoginDetails() {
 		super();
 	}
@@ -73,6 +68,4 @@ public class LoginDetails {
 				+ "]";
 	}
 
-	
-	
 }

@@ -1,5 +1,6 @@
 package com.cg.exception;
 
+@SuppressWarnings("serial")
 public class ProjectException extends RuntimeException {
 	public ProjectException() {
 	}

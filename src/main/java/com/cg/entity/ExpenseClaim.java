@@ -5,19 +5,12 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -25,32 +18,31 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "ExpenseClaim")
 public class ExpenseClaim {
 	@Id
-	@Column(name="expenseClaimId")
+	@Column(name = "expenseClaimId")
 	private int expenseClaimId;
-	
-	@NotNull(message="Amount cannot be empty")
-	@Min(value=0) 
+
+	@NotNull(message = "Amount cannot be empty")
+	@Min(value = 0)
 	@Column(name = "expenseAmount")
 	private double expenseAmount;
-	
+
 	@Column(name = "startDate")
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate startDate;
-	
+
 	@Column(name = "endDate")
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate endDate;
 
-//	@OnDelete(action=OnDeleteAction.CASCADE)
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "exClaimExpenseCode")
 	protected Expense expense;
 
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "exClaimProjectCode")
 	protected Project project;
 
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "exClaimEmpCode")
 	protected Employee employee;
 
@@ -133,5 +125,4 @@ public class ExpenseClaim {
 				+ employee + "]";
 	}
 
-	
 }

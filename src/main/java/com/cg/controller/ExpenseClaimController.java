@@ -21,18 +21,18 @@ public class ExpenseClaimController {
 	@Autowired
 	ExpenseClaimService exClaimService;
 
-	@GetMapping("/getAllExpenseClaim")
-	public List<ExpenseClaim> getAllExpenseClaim() {
-		return exClaimService.getAllExpenseClaim();
-	}
-
 	@PostMapping("/addExpenseClaim")
 	public ExpenseClaim addExpenseClaim(@RequestBody ExpenseClaim expenseClaim) {
 		return exClaimService.addExpenseClaim(expenseClaim);
 	}
 
+	@GetMapping("/getAllExpenseClaim")
+	public List<ExpenseClaim> getAllExpenseClaim() {
+		return exClaimService.getAllExpenseClaim();
+	}
+
 	@GetMapping("/fetchExpenseClaimById/{id}")
-	public ResponseEntity fetchExpenseClaimById(@PathVariable("id") int id) {
+	public ResponseEntity<Object> fetchExpenseClaimById(@PathVariable("id") int id) {
 		return exClaimService.fetchExpenseClaimById(id);
 	}
 

@@ -51,13 +51,16 @@ public class ExpenseClaimService {
 
 	public ExpenseClaim addExpenseClaim(ExpenseClaim expenseClaim) {
 
+		int checkExClaimId = expenseClaim.getExpenseClaimId();
 		int checkProjectId = expenseClaim.getProject().getProjectCode();
 		int checkExpenseId = expenseClaim.getExpense().getExpenseCode();
 		int checkEmployeeId = expenseClaim.getEmployee().getEmpId();
 		int checkLoginDetailsId = expenseClaim.getEmployee().getLogindetails().getId();
 
 		try {
-			if (!pRepo.existsById(checkProjectId)) {
+			if (exClaimRepo.existsById(checkExClaimId)) {
+				throw new ExpenseClaimException("Expense Claim already exists");
+			} else if (!pRepo.existsById(checkProjectId)) {
 				throw new ProjectException("Project does not exist");
 			} else if (!exRepo.existsById(checkExpenseId)) {
 				throw new ExpenseException("Expense does not exist");
@@ -81,7 +84,7 @@ public class ExpenseClaimService {
 		} catch (ExpenseClaimException ex) {
 			throw ex;
 		}
-		return new ResponseEntity(exClaimRepo.findById(id).get(), HttpStatus.OK);
+		return new ResponseEntity<Object>(exClaimRepo.findById(id).get(), HttpStatus.OK);
 
 	}
 
@@ -93,7 +96,7 @@ public class ExpenseClaimService {
 		try {
 			if (!designation.equals("Project Manager")) {
 				throw new ExpenseClaimException(
-						"you do not have Project Manager privileges for pdating Expense Claim!");
+						"you do not have Project Manager privileges for updating Expense Claim!");
 			} else {
 				return exClaimRepo.save(expenseclaim);
 			}
@@ -129,6 +132,23 @@ public class ExpenseClaimService {
 		} catch (ExpenseClaimException ex) {
 			throw ex;
 		}
+	}
+
+	// Test Specific methods
+	public ExpenseClaim addExpenseClaimfortest(ExpenseClaim expenseclaim) {
+		return exClaimRepo.save(expenseclaim);
+	}
+
+	public ExpenseClaim GetExpenseClaimByAmount(ExpenseClaim expenseclaim) {
+		return exClaimRepo.findByExpenseAmount(expenseclaim.getExpenseAmount());
+	}
+
+	public ExpenseClaim UpdateExpenseClaimfortest(ExpenseClaim expenseclaim) {
+		return exClaimRepo.save(expenseclaim);
+	}
+
+	public void deleteExpenseClaim(ExpenseClaim expenseclaim) {
+		exClaimRepo.delete(expenseclaim);
 	}
 
 }

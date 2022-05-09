@@ -4,10 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -18,69 +15,68 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="Employee")
+@Table(name = "Employee")
 public class Employee {
 
 	@Id
-	@Column(name="empId")
+	@Column(name = "empId")
 	private int empId;
-	
-	@NotBlank(message="Name cannot be empty")
-	@Column(name="empName")
+
+	@NotBlank(message = "Name cannot be empty")
+	@Column(name = "empName")
 	private String empName;
-	
-	@NotBlank(message="PAN cannot be empty")
-	@Size(min=1,max=10)
-	@Column(name="empPAN")
+
+	@NotBlank(message = "PAN cannot be empty")
+	@Size(min = 1, max = 10)
+	@Column(name = "empPAN")
 	private String empPAN;
-	
-	@NotBlank(message="Designation cannot be empty")
-	@Column(name="empDesignation")
+
+	@NotBlank(message = "Designation cannot be empty")
+	@Column(name = "empDesignation")
 	private String empDesignation;
-	
-	@Column(name="empDomain")
-	@NotBlank(message="Domain cannot be empty")
+
+	@Column(name = "empDomain")
+	@NotBlank(message = "Domain cannot be empty")
 	private String empDomain;
-	
-	@NotBlank(message="Date of joining cannot be empty")
-	@Column(name="empDOJ")
+
+	@NotBlank(message = "Date of joining cannot be empty")
+	@Column(name = "empDOJ")
 	private String empDOJ;
-	
-	@NotBlank(message="Date of birth cannot be empty")
-	@Column(name="empDOB")
+
+	@NotBlank(message = "Date of birth cannot be empty")
+	@Column(name = "empDOB")
 	private String empDOB;
-	
-	@NotNull(message="Salary cannot be empty")
-	@Min(value=1)
-	@Column(name="empSalary")
+
+	@NotNull(message = "Salary cannot be empty")
+	@Min(value = 1)
+	@Column(name = "empSalary")
 	private double empSalary;
-	
+
 	@Email
-	@NotBlank(message="Email cannot be empty")
-	@Column(name="empEmailId")
+	@NotBlank(message = "Email cannot be empty")
+	@Column(name = "empEmailId")
 	private String empEmailId;
-	
-	@NotBlank(message="Username cannot be empty")
-	@Column(name="userName")
+
+	@NotBlank(message = "Username cannot be empty")
+	@Column(name = "userName")
 	private String userName;
-	
-	@NotBlank(message="Password cannot be empty")
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$")
-	@Column(name="password")
+
+	@NotBlank(message = "Password cannot be empty")
+	// @Pattern(regexp =
+	// "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$")
+	@Column(name = "password")
 	private String password;
-	
-	@NotBlank(message="Role cannot be empty")
-	@Column(name="role")
+
+	@NotBlank(message = "Role cannot be empty")
+	@Column(name = "role")
 	private String role;
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	protected LoginDetails logindetails;
-	
+
 	public Employee() {
 		super();
 	}
-
-	
 
 	public Employee(int empId, @NotBlank(message = "Name cannot be empty") String empName,
 			@NotBlank(message = "PAN cannot be empty") @Size(min = 1, max = 10) String empPAN,
@@ -108,8 +104,6 @@ public class Employee {
 		this.role = role;
 		this.logindetails = logindetails;
 	}
-
-
 
 	public int getEmpId() {
 		return empId;
@@ -223,6 +217,4 @@ public class Employee {
 				+ password + ", role=" + role + ", logindetails=" + logindetails + "]";
 	}
 
-	
-	
 }

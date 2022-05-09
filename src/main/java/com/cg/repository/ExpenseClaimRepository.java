@@ -12,4 +12,6 @@ public interface ExpenseClaimRepository extends JpaRepository<ExpenseClaim, Inte
 	ExpenseClaim findExpenseClaimByProjectProjectCode(int projectId);
 
 	ExpenseClaim findExpenseClaimByExpenseClaimId(int checkExpenseClaimCode);
+
+	ExpenseClaim findByExpenseAmount(double expenseAmount);
 }
